@@ -11,4 +11,7 @@ shadowClip="shadow_$1"
 ffmpeg -i $outerClip -i shadow.png -filter_complex "overlay" $shadowClip -y
 
 # Apply inner clip to shadow clip
-ffmpeg -i $shadowClip -i $innerClip -filter_complex "overlay = 60:34" result.mp4 -y
+ffmpeg -i $shadowClip -i $innerClip -filter_complex "overlay = 60:34" $2 -y
+
+# Cleanup
+rm $innerClip $outerClip $shadowClip
