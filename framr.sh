@@ -8,10 +8,10 @@ ffmpeg -i $1 -vf "boxblur=30" -c:a copy $outerClip -y
 
 # Apply shadow to outer clip
 shadowClip="shadow_$1"
-ffmpeg -i $outerClip -i shadow.png -filter_complex "overlay" $shadowClip -y
+ffmpeg -i $outerClip -i $2 -filter_complex "overlay" $shadowClip -y
 
 # Apply inner clip to shadow clip
-ffmpeg -i $shadowClip -i $innerClip -filter_complex "overlay = 60:34" $2 -y
+ffmpeg -i $shadowClip -i $innerClip -filter_complex "overlay = 60:34" "./framr_output/$1" -y
 
 # Cleanup
 rm $innerClip $outerClip $shadowClip
