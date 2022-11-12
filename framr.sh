@@ -1,17 +1,6 @@
-# Create inner clip
-innerClip="inner_$1"
-ffmpeg -i $1 -vf scale=1800:1012 -preset slow -crf 18 $innerClip -y
-
-# Create outer clip
-outerClip="outer_$1"
-ffmpeg -i $1 -vf "boxblur=30" -c:a copy $outerClip -y
-
-# Apply shadow to outer clip
-shadowClip="shadow_$1"
-ffmpeg -i $outerClip -i $2 -filter_complex "overlay" $shadowClip -y
-
-# Apply inner clip to shadow clip
-ffmpeg -i $shadowClip -i $innerClip -filter_complex "overlay = 60:34" "./framr_output/$1" -y
-
-# Cleanup
-rm $innerClip $outerClip $shadowClip
+# Usage:
+# bash framr.sh video shadowImage innerWidth innerHeight innerX innerY outputVideo
+#
+# Example for a 1920x1080 video:
+# bash framr.sh video.mp4 shadow.png 1800 1012 60 34 output.mp4
+ffmpeg -i "$1" -i "$2" -filter_complex "[0]boxblur=30[a];[a][1]overlay[b];[0]scale=$3:$4[c];[b][c]overlay=$5:$6" -preset slow -crf 18 $7
