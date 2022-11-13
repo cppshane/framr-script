@@ -1,8 +1,8 @@
 # Usage:
-# bash framr-batch.sh videosDirectory videoType shadowImage innerWidth innerHeight innerX innerY
+# framr-batch videosDirectory videoType shadowImage innerWidth innerHeight innerX innerY
 #
 # Example for a batch of 1920x1080 videos:
-# bash framr-batch.sh myVideos mp4 shadow.png 1800 1012 60 34
+# framr-batch myVideos mp4 shadow.png 1800 1012 60 34
 currentDir=$(pwd);
 outputDir="$currentDir/output_$1";
 mkdir -p $outputDir;
